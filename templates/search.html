@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+
+search accessories..
+
+{% endblock %}
+{% block title %}
+Search
+{% endblock %}
+{% block content %}
+
+<div>
+    <p class="text-center my_search_text">you are searched for :<b>"{{query}}"</b></p>
+</div>
+<div class="container" style='min-height:70vh;'>
+    {% if products %}
+    <div class="row ">
+
+        {% for product in products %}
+
+        <div class="col-md-4 col-lg-4 col-sm-12">
+
+            <div class="card h-200 mx-3 mb-4"
+                style="box-shadow: 0 0 8px rgb(206, 206, 206);border-radius: 10px;width:240px;height:350px;">
+
+                <a href="{{product.get_url}}" style="height:60%;display: grid;place-items: center;">
+                    <img class="card-img-top " src="{{product.image.url}}" style="max-width:200px;height: 90%;">
+                </a>
+                <div class="card-body" style="height: 30px;">
+                    <h5 class="card-title">{{product.name}}</h5>
+                    <p class="card-text" style="color:red;font-weight: bolder;">₹{{product.price}}</p>
+
+                    <button type="button" class="btn btn-warning" style="width:100%;margin: 0 ;">
+                        <img src="{% static 'img/cart.png' %}" style="height: 30px; ">
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+    {% else %}
+   <div class="centerimg" style="display: grid;place-items:center;">
+    <img src="{% static 'img/oops.png' %}" style="width:60vw ;">
+   </div>
+    {% endif %}
+</div>
+
+{% endblock %}

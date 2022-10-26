@@ -1,0 +1,80 @@
+{% load static %}
+
+<div id="mySidebar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  <a href="{% url 'shop:allprodcat' %}">
+    <div class="logo" style="width: 200px;font-size: 23px;display: flex;align-items: center;justify-content: center;">
+      bo<span style='color: red;font-weight: bold;'>A</span>t
+    </div>
+  </a>
+  <a href="{% url 'shop:allprodcat' %}" style="display: flex;align-items: center;justify-content: center;">
+    <div class="product">
+      <img src="{% static 'img/all.jpg' %}" style="height:25px ;">
+
+    </div>
+    <div class="prodname">All Products</div>
+  </a>
+
+  <!-- sidebar product links  -->
+
+  {% for cat in links %}
+  <a href="{{cat.get_url}}"
+    style="display: flex;align-items: center;justify-content: space-around;width: 70%;margin:10px 15%;">
+    <div class="product">
+      <img src="{{ cat.image.url }}" style="height:25px ;">
+
+    </div>
+    <div class="prodname">{{cat.name}}</div>
+  </a>
+  {% endfor %}
+  <!-- sidebar product links  -->
+
+</div>
+<!-- sidebar block -->
+<!-- navbar content -->
+<nav class="shadow bg-body rounded py-2" style="width:100vw; top: 0;position: relative;padding: 0 2vw;">
+  <div class="top_nav">
+    <div class="menu_icon">
+      <img src="{% static 'img/menu.png' %}" style="height: 30px; " onclick="openNav()">
+    </div>
+    <a href="{% url 'shop:allprodcat' %}" style="text-decoration:none;">
+      <div class="logo" style="width: 100px;font-size: 32px;color: black;font-weight: bolder;">
+        bo<span style='color: red;font-weight: bold;'>A</span>t
+      </div>
+    </a>
+
+    <a href="{% url 'cart:cart_detail' %}" style="text-decoration:none;">
+      <div class="icons">
+        <img src="{% static 'img/cart.png' %}" style="height: 30px; ">
+        <span
+          style="width: 10px;height:10px;background-color:red;border-radius:50%;color: white;font-size: 15px;font-weight: bold;padding: 0 5px;">{{item_count}}</span>
+      </div>
+    </a>
+  </div>
+  <div class="bottom_nav">
+    <form action="{% url 'search_app:searchresult' %}" class="input">
+      {% csrf_token %}
+      <input type="text" required name="q">
+      <button type="submit" id="button">
+        <img src="{% static 'img/search.png' %}" style="height:12px;">
+      </button>
+    </form>
+
+  </div>
+</nav>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script>
+
+  function openNav() {
+    document.getElementById("mySidebar").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+  }
+</script>
